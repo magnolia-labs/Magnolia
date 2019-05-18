@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Login = () => {
 
     return (
-      <LoginBtn>Login</LoginBtn>
+      <LoginBtn>Login with Google!</LoginBtn>
     )
 }
 

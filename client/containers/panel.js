@@ -6,9 +6,9 @@ const Panel = () => {
       <RightPanel>
         <form>
             <label htmlFor="ProjectName">Project Name: </label>
-            <input type="text" value="Enter project name"></input>
+            <input type="text" defaultValue="Enter project name"></input>
             <label htmlFor="Stateful">Is the component stateful? </label>
-            <input type="checkbox" name="Stateful" defaultChecked></input>
+            <input type="checkbox" name="Stateful" onChange={console.log('changed pref')} defaultChecked></input>
         </form>
       </RightPanel>
     )

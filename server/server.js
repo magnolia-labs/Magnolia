@@ -2,6 +2,10 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const projectController = require('./controllers/projectController.js');
+const db = require('./database');
+
+// Example query to show database is connected
+// db.any(`SELECT * FROM nodes`).then(data => console.log(data));
 
 const app = express();
 

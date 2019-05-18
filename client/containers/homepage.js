@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import ProjectCanvas from './project.js';
 
-const Homepage = () => {
+const Homepage = (props) => {
+
+    const [age, setAge] = useState(0);
+    const [newProject, setNewProject] = useState(false);
+
+    const addNewProject = () => {
+        setNewProject(true);
+    }
 
     return (
       <React.Fragment>
-        <NewProjectBtn>New Project</NewProjectBtn>
-        <select>    
-            <option value="test">test</option>
-        </select>
-        <h1> this is the home page </h1>
+        <NewProjectBtn onClick={addNewProject}>New Project</NewProjectBtn>
+        <form>
+            <select>    
+                <option value="project1">Project One</option>
+                <option value="project2">Project Two</option>
+            </select>
+        </form>
+        { newProject && <ProjectCanvas /> }
       </React.Fragment>
     )
 }

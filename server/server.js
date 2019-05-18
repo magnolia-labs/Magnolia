@@ -15,6 +15,8 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
+app.get('/projects/:projectid', projectController.retrieveProject);
+
 app.post('/newproject', projectController.newProject);
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, './../index.html')));

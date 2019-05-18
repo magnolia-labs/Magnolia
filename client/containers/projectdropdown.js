@@ -6,6 +6,7 @@ const ProjectDropdown = () => {
     return (
         <select>
             <option>one</option>
+            <option>two</option>
         </select>
     )
 }

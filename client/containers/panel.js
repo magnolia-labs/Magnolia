@@ -1,33 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Panel = ({ node_id }) => {
-    console.log('node in panel ', node_id)
+const Panel = ({ saveProject, currentNode }) => { 
+    const { count, name, id, parent_id, props, stateful } = currentNode;
+    console.log('curr node ', currentNode)
+    console.log('name is ', name)
+    console.log(' count is ', count)
     return (
       <RightPanel>
-        <form>
-            <div>
-              <label htmlFor="ProjectName">Project Name: </label>
-              <input type="text" defaultValue="My Project"></input>
-            </div>
-            <div>
-              <label htmlFor="ComponentName">Component Name: </label>
-              <input type="text" defaultValue={node_id}></input>
-            </div>
-            <div>
-              <label htmlFor="Stateful">Is the component stateful? </label>
-              <input type="checkbox" name="Stateful" onChange={console.log('')} defaultChecked></input>
-            </div>
-            <div>
-              <label htmlFor="Count">Count: </label>
-              <input type="text" defaultValue="1"></input>
-            </div>
-            <div>
-              <label htmlFor="Props">Props: </label>
-              <input type="text" defaultValue=""></input>
-            </div>
-            <button>Update Node</button>
-        </form>
+        <NodeInfo onSubmit={saveProject}>
+          <label>
+            Component Name: 
+            <input type="text" name="componentName" id={id} value={name}></input>
+          </label>
+
+          <label>
+            Is the component stateful?
+            <input type="checkbox" name="stateful" value={true} defaultChecked></input>
+          </label>
+
+          <label>
+            How many components are there?:
+            <input type="text" name="componentCount" value={count}></input>
+          </label>
+
+          <label>
+              Props:
+              <input type="text" name="props" value={props}></input>
+          </label>
+
+          <button>Update Node</button>
+        </NodeInfo>
       </RightPanel>
     )
 }
@@ -35,7 +38,21 @@ const Panel = ({ node_id }) => {
 export default Panel;
 
 const RightPanel = styled.div`
-    width: 200px;
-    height: 500px;
-    border: 1px solid black;
+  width: 250px;
+  height: 500px;
+  font-size: 13px;
+  border: 1px solid black;
+  font-family: 'Poppins', sans-serif;
+
+  :focus{
+    outline: none;
+  }
+`
+
+const NodeInfo = styled.form`
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: space-between
+
 `

@@ -11,7 +11,11 @@ const Login = () => {
 export default Login;
 
 const LoginBtn = styled.button`
-    :focus {
-        outline: none;
-    }
+  font-family: 'Poppins', sans-serif;
+  padding: 10px;
+  border-radius: 3px;
+
+  :focus {
+    outline: none; 
+  }
 `

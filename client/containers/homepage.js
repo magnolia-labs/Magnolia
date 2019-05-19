@@ -1,56 +1,53 @@
 import React, { useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import ProjectCanvas from './project.js';
 import ProjectDropdown from './projectdropdown.js';
 
 const Homepage = (props) => {
 
-    //This state tracks the display of a new project
-    const [newProject, setNewProject] = useState(false); 
-
     //This state tracks what current project the user is viewing
-    const [currentProject, updateCurrentProject] = useState({});
+    const [projectID, setProjectID] = useState(null);
+    //This state tracks if the page should be redirected
+    const [redirect, setRedirect] = useState(false);
+    
+    //This function will redirect the user to the correct page with the project ID
+    const renderRedirect = () => {
+        if(redirect){
+            return <Redirect to={{
+                pathname: `/project/${projectID}`,
+                project: projectID
+            }}/>;
+        }
+    }
 
-    const addNewProject = (props) => {
-        setNewProject(true);
-        console.log(' i am in here')
-        //USER IS CURRENTLY HARDCODED. MUST UPDATE TO REFLECT ACTUAL CURRENT USER
+    //This function adds a new project to the data base
+    //The response is a single project ID
+    const addNewProject = () => {
         const metaData = {
             'method': 'POST',
             'Content-type': 'application/json',
-            'body': JSON.stringify({
-                'user_id': 1
-            })
         }
 
         fetch('/newproject', metaData)
             .then(response => response.json())
-            .then(response => {
-                updateCurrentProject({
-                    project_id: response.project_id, //confirm with backend naming
-                    node_id: response.head_id,
-                    stateful: response.stateful,
-                    state_props: response.state_props,
-                    count: response.count,
-                    children: [{ node_id: 4}, { node_id: 3}, { node_id: 5},]
-                })
-            })
-            .catch(err => console.log('err', err))
+            .then(response => setProjectID(1)) //The returned project ID is set
+            .then(response => setRedirect(true)) //The page is redirected to the project canvas page
+            .catch(err => console.log('err', err))  
 
+        /*
+            response:
+            {
+              project_id:
+            }
+
+        */
     }  
 
     return (
       <React.Fragment>
-        { !newProject && <NewProjectBtn onClick={addNewProject}>New Project</NewProjectBtn>}
-        { !newProject && <ProjectDropdown />}
-       <form>
-            {/* <select>    
-                <option value="project1">Project One</option>
-                <option value="project2">Project Two</option>
-            </select> */}
-        </form>
-        { newProject && <ProjectCanvas project={currentProject}/> }
+        {renderRedirect()}
+        <NewProjectBtn onClick={addNewProject}>Start New Project</NewProjectBtn>
+        <ProjectDropdown />
       </React.Fragment>
     )
 }
@@ -58,11 +55,13 @@ const Homepage = (props) => {
 export default Homepage;
 
 const NewProjectBtn = styled.button`
-
+    font-family: 'Poppins', sans-serif;
     padding: 10px;
     border-radius: 3px;
+    margin-left: 20px;
 
     :focus {
         outline: none;
     }
 `
+

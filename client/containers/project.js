@@ -47,8 +47,6 @@ const ProjectCanvas = (props) => {
     //This function will add a new node to the database
     const addNewNode = (e) => {
         const parent_id = e.target.value;
-        console.log(' parent ID ', parent_id)
-        
         const metaData = {
             'method': 'POST',
             'headers': {
@@ -73,7 +71,6 @@ const ProjectCanvas = (props) => {
     //This function will update a current node to the database
     const updateNode = (e) => {
         e.preventDefault();
-
         const metaData = {
             'method': 'POST',
             'headers': {
@@ -90,11 +87,9 @@ const ProjectCanvas = (props) => {
 
         fetch(`/updateproject/${project_id}`, metaData)
           .then(response => response.json())
-          .then(response => console.log('response is from update ', response))
-        //   .then(response => setProjectUpdate(true))
           .catch(err => console.log('err', err))
-
-        setProjectUpdate(true);
+        
+      setProjectUpdate(true);
     }
 
     //This function will set the current node the user is viewing
@@ -110,15 +105,37 @@ const ProjectCanvas = (props) => {
     }
 
     //This function will consistently update the current node on the form change
-    const onInputChange = (e) => {
-        console.log(' test spread object ', {...currentNode});
-        console.log(' event ', e.target.innerText)
+
+    const onInputChangeName = (e) => {
         changeCurrentNode({
             ...currentNode,
-            "name": e.target.innerText
+            "name": e.target.value
         })
     }
-    //This function will create all the nodes on the page
+
+    const onInputChangeCount = (e) => {
+        changeCurrentNode({
+            ...currentNode,
+            "count": e.target.value
+        })
+    }
+
+    const onInputChangeProps = (e) => {
+        changeCurrentNode({
+            ...currentNode,
+            "props": e.target.value
+        })
+    }
+
+    const onInputChangeState = (e) => {
+
+        changeCurrentNode({
+            ...currentNode,
+            "stateful": e.target.checked
+        })
+    }
+
+    // This function will create all the nodes on the page
     const arrayOfNodes = [];
 
     // projectTree.map((node) => {
@@ -301,7 +318,7 @@ const ProjectCanvas = (props) => {
             </svg>
                 {/* {arrayOfNodes} */}
             </Canvas>
-            <Panel onInputChange={onInputChange} saveProject={updateNode} currentNode={currentNode} />
+            <Panel addNewNode={addNewNode} onInputChangeState={onInputChangeState} onInputChangeProps={onInputChangeProps} onInputChangeCount={onInputChangeCount} onInputChangeName={onInputChangeName} saveProject={updateNode} currentNode={currentNode} />
         </BodyOfProject>
       </ProjectPage>
     )

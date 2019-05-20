@@ -100,13 +100,17 @@ const ProjectCanvas = (props) => {
     //This function will set the current node the user is viewing
     const setViewingNode = (e) => {
       const node_id = e.data.id;
-      console.log(node_id);
-        
-        projectTree.map(node => {
-            if(node.id == node_id){
-                changeCurrentNode(node);
-            }
-        })
+      // console.log(node_id);
+      // console.log(projectTree);
+      let currentNode = projectTree;
+      // console.log(currentNode);
+      while(node_id !== currentNode.id) {
+        currentNode.children.forEach((child) => {
+          if (child.id === node_id) currentNode = child
+        }); 
+      }
+    // console.log(currentNode);
+    changeCurrentNode(currentNode);
     }
 
     //This function will consistently update the current node on the form change
@@ -216,7 +220,7 @@ const ProjectCanvas = (props) => {
     //   ],
     // };
     
-    console.log('Project Tree', projectTree);
+    // console.log('Project Tree', projectTree);
     const root = d3.hierarchy(projectTree);
     const tree = d3.tree();
     

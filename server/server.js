@@ -5,7 +5,6 @@ const cookieParser = require('cookie-parser');
 
 const projectController = require('./controllers/projectController.js');
 const userController = require('./controllers/user-controller.js');
-const db = require('./database');
 const authController = require('./controllers/google-auth-controller');
 
 // const db = require('./database');
@@ -20,20 +19,15 @@ app.use('/build', express.static(path.join(__dirname, '../build')));
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 
-// Routes dealing with user creation/verification
-app.post('/signup', userController.createUser);
-app.post('/login', userController.logInUser);
-app.get('/homepage', userController.verifyUser); // Todo : change 
+// Routes dealing with users
+app.get('/google-init', authController.getCode);
+app.get('/homepage', authController.getToken, userController.logInUser);
 app.get('/logout', userController.logOutUser);
+// app.get('/projectspage')
 
-// Routes dealing with project information
+// Routes dealing with projects
 app.get('/projects/:projectid', projectController.retrieveProject);
 app.get('/getallprojects', projectController.getAllProjects);
-
-app.get('/google-init', authController.getCode);
-
-app.get('/homepage', authController.getToken)
-
 app.post('/newproject', projectController.newProject);
 app.post('/updateproject/:projectid', projectController.updateProject);
 app.post('/newnode/:projectid', projectController.newNode);

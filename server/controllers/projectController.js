@@ -52,7 +52,8 @@ projectController.updateProject = (req, res) => {
     .then((data) => {
       console.log(data);
       return res.json(data);
-    });
+    })
+    .catch(err => console.log(' error is ', err));
 };
 
 projectController.retrieveProject = (req, res) => {

@@ -130,94 +130,94 @@ const ProjectCanvas = (props) => {
     //     )
     // })
 
-    const DATA = {
-      id: 3,
-      name: 'App',
-      stateful: true,
-      state: null,
-      props: null,
-      count: '1',
-      children: [
-        {
-          id: 4,
-          name: 'Feed',
-          stateful: true,
-          state: null,
-          props: null,
-          count: '1',
-          children: [
-            {
-              id: 5,
-              name: 'Post',
-              stateful: false,
-              state: null,
-              props: null,
-              count: 'variable',
-              children: [
-                {
-                  id: 6,
-                  name: 'Content',
-                  stateful: false,
-                  state: null,
-                  props: null,
-                  count: '1',
-                  children: [],
-                },
-                {
-                  id: 7,
-                  name: 'User',
-                  stateful: false,
-                  state: null,
-                  props: null,
-                  count: '1',
-                  children: [],
-                },
-                {
-                  id: 8,
-                  name: 'Comments',
-                  stateful: false,
-                  state: null,
-                  props: null,
-                  count: '1',
-                  children: [
-                    {
-                      id: 8,
-                      name: 'Comment',
-                      stateful: false,
-                      state: null,
-                      props: null,
-                      count: 'variable',
-                      children: [],
-                    },
-                    {
-                      id: 8,
-                      name: 'New Comment Field',
-                      stateful: false,
-                      state: null,
-                      props: null,
-                      count: '1',
-                      children: [],
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              id: 9,
-              name: 'Toolbar',
-              stateful: true,
-              state: null,
-              props: null,
-              count: '1',
-              children: [],
-            },
-          ],
-        },
-      ],
-    };
+    // const DATA = {
+    //   id: 3,
+    //   name: 'App',
+    //   stateful: true,
+    //   state: null,
+    //   props: null,
+    //   count: '1',
+    //   children: [
+    //     {
+    //       id: 4,
+    //       name: 'Feed',
+    //       stateful: true,
+    //       state: null,
+    //       props: null,
+    //       count: '1',
+    //       children: [
+    //         {
+    //           id: 5,
+    //           name: 'Post',
+    //           stateful: false,
+    //           state: null,
+    //           props: null,
+    //           count: 'variable',
+    //           children: [
+    //             {
+    //               id: 6,
+    //               name: 'Content',
+    //               stateful: false,
+    //               state: null,
+    //               props: null,
+    //               count: '1',
+    //               children: [],
+    //             },
+    //             {
+    //               id: 7,
+    //               name: 'User',
+    //               stateful: false,
+    //               state: null,
+    //               props: null,
+    //               count: '1',
+    //               children: [],
+    //             },
+    //             {
+    //               id: 8,
+    //               name: 'Comments',
+    //               stateful: false,
+    //               state: null,
+    //               props: null,
+    //               count: '1',
+    //               children: [
+    //                 {
+    //                   id: 8,
+    //                   name: 'Comment',
+    //                   stateful: false,
+    //                   state: null,
+    //                   props: null,
+    //                   count: 'variable',
+    //                   children: [],
+    //                 },
+    //                 {
+    //                   id: 8,
+    //                   name: 'New Comment Field',
+    //                   stateful: false,
+    //                   state: null,
+    //                   props: null,
+    //                   count: '1',
+    //                   children: [],
+    //                 },
+    //               ],
+    //             },
+    //           ],
+    //         },
+    //         {
+    //           id: 9,
+    //           name: 'Toolbar',
+    //           stateful: true,
+    //           state: null,
+    //           props: null,
+    //           count: '1',
+    //           children: [],
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // };
     
-    
-    const root = d3.hierarchy(DATA);
+    console.log('Project Tree', projectTree);
+    const root = d3.hierarchy(projectTree);
     const tree = d3.tree();
     
     tree.size([600, 750]);

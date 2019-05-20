@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 
 const projectController = require('./controllers/projectController.js');
 const userController = require('./controllers/user-controller.js');
+const db = require('./database');
+const authController = require('./controllers/google-auth-controller');
 
 // const db = require('./database');
 // Example query to show database is connected
@@ -27,6 +29,11 @@ app.get('/logout', userController.logOutUser);
 // Routes dealing with project information
 app.get('/projects/:projectid', projectController.retrieveProject);
 app.get('/getallprojects', projectController.getAllProjects);
+
+app.get('/google-init', authController.getCode);
+
+app.get('/homepage', authController.getToken)
+
 app.post('/newproject', projectController.newProject);
 app.post('/updateproject/:projectid', projectController.updateProject);
 app.post('/newnode/:projectid', projectController.newNode);

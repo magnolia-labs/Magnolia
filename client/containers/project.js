@@ -87,9 +87,13 @@ const ProjectCanvas = (props) => {
 
         fetch(`/updateproject/${project_id}`, metaData)
           .then(response => response.json())
+          .then((response) => {
+            if (projectUpdate) setProjectUpdate(false);
+            else setProjectUpdate(true);
+          })
           .catch(err => console.log('err', err))
         
-      setProjectUpdate(true);
+      // setProjectUpdate(true);
     }
 
     //This function will set the current node the user is viewing
@@ -135,111 +139,11 @@ const ProjectCanvas = (props) => {
         })
     }
 
-    // This function will create all the nodes on the page
-    const arrayOfNodes = [];
-
-    // projectTree.map((node) => {
-    //     arrayOfNodes.push(
-    //         <NodeWrapper>
-    //             <Node value={node.id} onClick={setViewingNode}> My parent is {node.parent_id} </Node>
-    //             <AddNode value={node.parent_id} onClick={addNewNode}> Add a new node </AddNode>
-    //         </NodeWrapper>
-    //     )
-    // })
-
-    // const DATA = {
-    //   id: 3,
-    //   name: 'App',
-    //   stateful: true,
-    //   state: null,
-    //   props: null,
-    //   count: '1',
-    //   children: [
-    //     {
-    //       id: 4,
-    //       name: 'Feed',
-    //       stateful: true,
-    //       state: null,
-    //       props: null,
-    //       count: '1',
-    //       children: [
-    //         {
-    //           id: 5,
-    //           name: 'Post',
-    //           stateful: false,
-    //           state: null,
-    //           props: null,
-    //           count: 'variable',
-    //           children: [
-    //             {
-    //               id: 6,
-    //               name: 'Content',
-    //               stateful: false,
-    //               state: null,
-    //               props: null,
-    //               count: '1',
-    //               children: [],
-    //             },
-    //             {
-    //               id: 7,
-    //               name: 'User',
-    //               stateful: false,
-    //               state: null,
-    //               props: null,
-    //               count: '1',
-    //               children: [],
-    //             },
-    //             {
-    //               id: 8,
-    //               name: 'Comments',
-    //               stateful: false,
-    //               state: null,
-    //               props: null,
-    //               count: '1',
-    //               children: [
-    //                 {
-    //                   id: 8,
-    //                   name: 'Comment',
-    //                   stateful: false,
-    //                   state: null,
-    //                   props: null,
-    //                   count: 'variable',
-    //                   children: [],
-    //                 },
-    //                 {
-    //                   id: 8,
-    //                   name: 'New Comment Field',
-    //                   stateful: false,
-    //                   state: null,
-    //                   props: null,
-    //                   count: '1',
-    //                   children: [],
-    //                 },
-    //               ],
-    //             },
-    //           ],
-    //         },
-    //         {
-    //           id: 9,
-    //           name: 'Toolbar',
-    //           stateful: true,
-    //           state: null,
-    //           props: null,
-    //           count: '1',
-    //           children: [],
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // };
-    
-    // console.log('Project Tree', projectTree);
     const root = d3.hierarchy(projectTree);
     const tree = d3.tree();
     
     tree.size([800, 850]);
     tree(root);
-    // console.log(root.descendants());
     d3.select('svg g.nodes')
       .selectAll('circle.node')
       .data(root.descendants())
@@ -276,7 +180,7 @@ const ProjectCanvas = (props) => {
       })
       .on('click', setViewingNode)
     
-    d3.selectAll('g.node')  
+    d3.selectAll('g.node')
       .append('text')
       .text(d => d.data.name)
       .attr('width', '10px')
@@ -316,7 +220,6 @@ const ProjectCanvas = (props) => {
                 <g class="nodes"></g>
               </g>
             </svg>
-                {/* {arrayOfNodes} */}
             </Canvas>
             <Panel addNewNode={addNewNode} onInputChangeState={onInputChangeState} onInputChangeProps={onInputChangeProps} onInputChangeCount={onInputChangeCount} onInputChangeName={onInputChangeName} saveProject={updateNode} currentNode={currentNode} />
         </BodyOfProject>

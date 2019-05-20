@@ -50,7 +50,7 @@ projectController.getAllProjects = (req, res) => {
 };
 
 projectController.newProject = (req, res) => {
-  const userId = req.cookies.id;
+  const userId = (req.cookies.id || 11);
   db.one(`INSERT INTO projects(user_id, name) 
           VALUES($1, $2) 
           RETURNING "id", "user_id", "name", "created_at";`,
@@ -85,15 +85,13 @@ projectController.updateProject = (req, res) => {
       return res.json(data);
     })
     .catch(err => console.log(' error is ', err));
-  
-      db.many(`SELECT * FROM nodes 
-      WHERE project_id = $1
-      ORDER BY id`, projectId)
-        .then((data) => {
-          const populatedTree = buildTree(data);
-          res.json(populatedTree);
-        });
-    });
+    // db.many(`SELECT * FROM nodes 
+    // WHERE project_id = $1
+    // ORDER BY id`, projectId)
+    //   .then((data) => {
+    //     const populatedTree = buildTree(data);
+    //     res.json(populatedTree);
+    //   });
 };
 
 projectController.retrieveProject = (req, res) => {

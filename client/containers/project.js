@@ -169,6 +169,15 @@ const ProjectCanvas = (props) => {
         })
     }
 
+    //This function will consistently update the current node on the form change
+    const onInputChange = (e) => {
+        console.log(' test spread object ', {...currentNode});
+        console.log(' event ', e.target.value)
+        changeCurrentNode({
+            ...currentNode,
+            "name": e.target.value
+        })
+    }
     //This function will create all the nodes on the page
     const arrayOfNodes = [];
 
@@ -188,7 +197,7 @@ const ProjectCanvas = (props) => {
             <Canvas>
                 {arrayOfNodes}
             </Canvas>
-            <Panel saveProject={updateNode} currentNode={currentNode} />
+            <Panel onInputChange={onInputChange} saveProject={updateNode} currentNode={currentNode} />
         </BodyOfProject>
       </ProjectPage>
     )
@@ -200,6 +209,7 @@ export default ProjectCanvas;
 //These are the styled components 
 const Canvas = styled.div`
     width: 80%;
+    background-color: #f8f9fb;
 ` 
 
 const BodyOfProject = styled.div`
@@ -232,10 +242,15 @@ const Node = styled.button`
 `
 
 const AddNode = styled.button`
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Raleway', sans-serif;
+  background-color: transparent;
   border: none;
   :focus {
     outline: none; 
+  }
+  :hover {
+    font-weight: bold;
+    color: #680E4B;
   }
 `
 

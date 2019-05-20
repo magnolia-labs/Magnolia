@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Panel = ({ saveProject, currentNode }) => { 
+const Panel = ({ saveProject, currentNode, onInputChange }) => { 
     const { count, name, id, parent_id, props, stateful } = currentNode;
     console.log('curr node ', currentNode)
     return (
@@ -9,7 +9,7 @@ const Panel = ({ saveProject, currentNode }) => {
         <NodeInfo onSubmit={saveProject}>
           <TextField>
             <span>Component Name: </span>
-            <input className="field" type="text" name="componentName" id={id} defaultValue={name}></input>
+            <input className="field" type="text" name="componentName" id={id} defaultValue={name} onChange={onInputChange}></input>
           </TextField>
 
           <label htmlFor="stateful">
@@ -27,7 +27,6 @@ const Panel = ({ saveProject, currentNode }) => {
             <span>Props:</span>
             <input className="field" type="text" name="props" defaultValue={props}></input>
           </TextField>
-
           <UpdateBtn>Update Component</UpdateBtn>
         </NodeInfo>
       </RightPanel>

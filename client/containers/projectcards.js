@@ -127,7 +127,7 @@ const ProjectSection = styled.div`
 
 const ProjectList = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fill, 200px);
   grid-gap: 20px;
   width: 80%;
 

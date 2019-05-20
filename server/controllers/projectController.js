@@ -16,7 +16,7 @@ projectController.getAllProjects = (req, res) => {
       });
       res.json(response);
     })
-    .catch(error => res.send('Error getting project list: ', error));
+    .catch(error => res.status(400).send('Error getting project list: ', error));
 };
 
 projectController.newProject = (req, res) => {

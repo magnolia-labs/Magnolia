@@ -32,7 +32,8 @@ function buildTree(dbRows) {
 }
 
 projectController.getAllProjects = (req, res) => {
-  const userId = req.cookies.id;
+  const userId = (req.cookies.id || 11);
+  console.log(userId);
   db.many('SELECT * FROM projects WHERE user_id = $1', userId)
     .then((data) => {
       console.log('Project info retrieved from db: ', data);
@@ -45,7 +46,7 @@ projectController.getAllProjects = (req, res) => {
       });
       res.json(response);
     })
-    .catch(error => res.status(400).send('Error getting project list: ', error));
+    .catch(error => res.send('Error getting project list: ', error));
 };
 
 projectController.newProject = (req, res) => {

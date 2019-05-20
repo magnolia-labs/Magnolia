@@ -100,16 +100,12 @@ const ProjectCanvas = (props) => {
     //This function will set the current node the user is viewing
     const setViewingNode = (e) => {
       const node_id = e.data.id;
-      // console.log(node_id);
-      // console.log(projectTree);
       let currentNode = projectTree;
-      // console.log(currentNode);
-      while(node_id !== currentNode.id) {
-        currentNode.children.forEach((child) => {
-          if (child.id === node_id) currentNode = child
-        }); 
+      const findNode = (node = currentNode) => {
+        if (node.id === node_id) return currentNode = node;
+        node.children.forEach(child => findNode(child));
       }
-    // console.log(currentNode);
+    findNode();
     changeCurrentNode(currentNode);
     }
 
@@ -224,7 +220,7 @@ const ProjectCanvas = (props) => {
     const root = d3.hierarchy(projectTree);
     const tree = d3.tree();
     
-    tree.size([600, 750]);
+    tree.size([800, 850]);
     tree(root);
     // console.log(root.descendants());
     d3.select('svg g.nodes')
@@ -261,8 +257,6 @@ const ProjectCanvas = (props) => {
         if (d.data.stateful) return '#EEC25D';
         return '#CDC5C1';
       })
-
-    d3.selectAll('g.node')
       .on('click', setViewingNode)
     
     d3.selectAll('g.node')  
@@ -273,7 +267,6 @@ const ProjectCanvas = (props) => {
       .attr('x', d => d.x)
       .attr('y', d => d.y)
       .attr('dy', '6px')
-      // .attr('clipPath', d => `url(#node-${d.data.id})`);
     
     d3.selectAll('g.node')
       .filter(d => d.data.count === 'variable')
@@ -300,7 +293,7 @@ const ProjectCanvas = (props) => {
         <ProjectTitle>Project: {project_id}</ProjectTitle>
         <BodyOfProject>
             <Canvas id="content">
-              <svg width="600" height="900">
+              <svg width="850" height="1000">
               <g transform="translate(60, 60)">
                 <g class="links"></g>
                 <g class="nodes"></g>

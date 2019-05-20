@@ -18,15 +18,16 @@ const ProjectCards = ({ addNewProject }) => {
   useEffect(() => {
 
     const metaData = {
-        'method': 'GET',
-        'Content-type': 'application/json'
+      'method': 'GET',
+      'header': {
+        'Content-Type': 'application/json',
+      },
     }
 
     fetch('/getallprojects', metaData)
-        .then(response => response.json())
+        .then(response => console.log(response.json()))
         .then(response => setAllProjects(response))
         .catch(err => console.log('error in getting the projects', err))
-
    }, []);
     
   const renderRedirect = () => {
@@ -39,9 +40,9 @@ const ProjectCards = ({ addNewProject }) => {
   }
 
   //This function gets a list of all the current projects and puts them into an array of dropdown options
-  const listOfProjects = allProjects.map(project => {
-    return <Project onClick={(e) => setProjectID({ project_id: e.target.value, redirect: true })} value={project.project_id}>{project.project_name}</Project>
-  });
+  // const listOfProjects = allProjects.map(project => {
+  //   return <Project onClick={(e) => setProjectID({ project_id: e.target.value, redirect: true })} value={project.project_id}>{project.project_name}</Project>
+  // });
 
   return (
     <ProjectSection>
@@ -51,7 +52,7 @@ const ProjectCards = ({ addNewProject }) => {
         <NewProjectBtn onClick={addNewProject}>Start New Project</NewProjectBtn>
       </ProjectTitle>
       <ProjectList>
-        {listOfProjects}
+        {/* {listOfProjects} */}
       </ProjectList>
     </ProjectSection>
   ); // end of return

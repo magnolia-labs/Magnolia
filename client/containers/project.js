@@ -33,64 +33,35 @@ const ProjectCanvas = (props) => {
         'Content-type': 'application/json'
       }
 
-    //   get(`/projects/${project_id}`, metaData)
-    //     .then(response => response.json())
-    //     .then(response => UpdateProjectTree(response))
-    //     .catch(err => console.log('Error ', err))
-
-        
-    UpdateProjectTree([
-        {
-            "id": 7,
-            "project_id": 12,
-            "parent_id": '',
-            "name": "App",
-            "stateful": false,
-            "state": '',
-            "props": '',
-            "count": "1"
-        },
-        {
-            "id": 8,
-            "project_id": 12,
-            "parent_id": 7,
-            "name": "Row",
-            "stateful": true,
-            "state": '',
-            "props": "row props",
-            "count": "3"
-        },
-        {
-            "id": 9,
-            "project_id": 12,
-            "parent_id": 8,
-            "name": "Box",
-            "stateful": false,
-            "state": '',
-            "props": "box props",
-            "count": "5"
-        }
-    ])
+      fetch(`/projects/${project_id}`, metaData)
+        .then(response => response.json())
+        .then(response => UpdateProjectTree(response))
+        .catch(err => console.log('Error ', err))
 
     }, [projectUpdate]);
 
     //This function will add a new node to the database
     const addNewNode = (e) => {
         const parent_id = e.target.value;
+        console.log(' parent ID ', parent_id)
         
         const metaData = {
             'method': 'POST',
-            'Content-type': 'application/json',
-            'body': JSON.stringify({ parent_id })
+            'headers': {
+                'Content-Type': 'application/json'
+            },
+            'body': JSON.stringify({
+                "parent_id": parent_id
+            })
         }
 
-        // fetch(`/newnode/${project_id}`, metaData)
-        //     .then(response => response.json())
-        //     .then(response => {
-        //         changeCurrentNode(response) //CHECK: what is the response structure?
+        fetch(`/newnode/${project_id}`, metaData)
+            .then(response => response.json())
+            .then(response => {
+                changeCurrentNode(response) //CHECK: what is the response structure?
                 setProjectUpdate(true)
-        //     }) //This triggers a event to get all tree values again
-        //     .catch(err => console.log(err))
+            }) //This triggers a event to get all tree values again
+            .catch(err => console.log(err))
 
         console.log('new node added!!')
     }
@@ -99,18 +70,13 @@ const ProjectCanvas = (props) => {
     const updateNode = (e) => {
         e.preventDefault();
 
-        //update current node in the tree 
-        console.log(' id is ', e.target.elements.componentName.id)
-        console.log(' name is ', e.target.elements.componentName.value)
-        console.log(' stateful is ', e.target.elements.stateful.checked)
-        console.log(' count is ', e.target.elements.componentCount.value)
-        console.log(' props is ', e.target.elements.props.value)
-
         const metaData = {
             'method': 'POST',
-            'Content-type': 'application/json',
+            'headers': {
+                'Content-type': 'application/json'
+            },
             'body': JSON.stringify({
-                "node_id": e.target.elements.componentName.id,
+                "id": e.target.elements.componentName.id,
                 "name": e.target.elements.componentName.value,
                 "stateful": e.target.elements.stateful.checked,
                 "count": e.target.elements.componentCount.value,
@@ -118,43 +84,12 @@ const ProjectCanvas = (props) => {
             })
         };
 
-        // fetch(`/updateproject/${project_id}`, metaData)
-        //   .then(response => response.json())
+        fetch(`/updateproject/${project_id}`, metaData)
+          .then(response => response.json())
+          .then(response => console.log('response is from update ', response))
         //   .then(response => setProjectUpdate(true))
-        //   .catch(err => console.log('err', err))
+          .catch(err => console.log('err', err))
 
-        UpdateProjectTree([
-            {
-                "id": 7,
-                "project_id": 12,
-                "parent_id": null,
-                "name": "App",
-                "stateful": false,
-                "state": null,
-                "props": null,
-                "count": "1"
-            },
-            {
-                "id": 8,
-                "project_id": 12,
-                "parent_id": 7,
-                "name": "Row",
-                "stateful": true,
-                "state": null,
-                "props": null,
-                "count": "3"
-            },
-            {
-                "id": 9,
-                "project_id": 12,
-                "parent_id": 8,
-                "name": "Box",
-                "stateful": false,
-                "state": null,
-                "props": null,
-                "count": "3"
-            }
-        ])
         setProjectUpdate(true);
     }
 
@@ -172,10 +107,10 @@ const ProjectCanvas = (props) => {
     //This function will consistently update the current node on the form change
     const onInputChange = (e) => {
         console.log(' test spread object ', {...currentNode});
-        console.log(' event ', e.target.value)
+        console.log(' event ', e.target.innerText)
         changeCurrentNode({
             ...currentNode,
-            "name": e.target.value
+            "name": e.target.innerText
         })
     }
     //This function will create all the nodes on the page

@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import ProjectCards from './projectcards.js';
 
-const Homepage = (props) => {
+const Homepage = () => {
 
     //This state tracks what current project the user is viewing
     const [projectID, setProjectID] = useState(null);
@@ -12,7 +12,7 @@ const Homepage = (props) => {
     
     //This function will redirect the user to the correct page with the project ID
     const renderRedirect = () => {
-        if(redirect){
+        if(projectID){
             return <Redirect to={{
                 pathname: `/project/${projectID}`,
                 project: projectID
@@ -23,6 +23,7 @@ const Homepage = (props) => {
     //This function adds a new project to the data base
     //The response is a single project ID
     const addNewProject = () => {
+        
         const metaData = {
             'method': 'POST',
             'Content-type': 'application/json',
@@ -30,18 +31,8 @@ const Homepage = (props) => {
 
         fetch('/newproject', metaData)
             .then(response => response.json())
-            .then(response => setProjectID(1)) //The returned project ID is set
-            .then(response => setRedirect(true)) //The page is redirected to the project canvas page
+            .then(response => setProjectID(response.project_id)) //The returned project ID 
             .catch(err => console.log('err', err))  
-
-        /*
-            response:
-            {
-              project_id:
-              name:
-            }
-
-        */
     }  
 
     return (

@@ -4,13 +4,16 @@ import styled from 'styled-components';
 const Panel = ({ saveProject, currentNode, onInputChange }) => { 
     const { count, name, id, parent_id, props, stateful } = currentNode;
     console.log('curr node ', currentNode)
+    console.log('console props ', props)
+
+
     return (
       <RightPanel>
-        <NodeInfo onSubmit={saveProject}>
-          <TextField>
+        <form onSubmit={saveProject}>
+          <div>
             <span>Component Name: </span>
             <input className="field" type="text" name="componentName" id={id} defaultValue={name} onChange={onInputChange}></input>
-          </TextField>
+          </div>
 
           <label htmlFor="stateful">
             <input type="checkbox" name="stateful" value="stateful" defaultChecked={stateful}></input>
@@ -18,17 +21,17 @@ const Panel = ({ saveProject, currentNode, onInputChange }) => {
             <span>Stateful?</span>
           </label>
 
-          <TextField>
+          <div>
             <span>How many components are there?:</span>
             <input className="field" type="text" name="componentCount" defaultValue={count}></input>
-          </TextField>
+          </div>
 
-          <TextField>
+          <div>
             <span>Props:</span>
             <input className="field" type="text" name="props" defaultValue={props}></input>
-          </TextField>
-          <UpdateBtn>Update Component</UpdateBtn>
-        </NodeInfo>
+          </div>
+          <button>Update Component</button>
+        </form>
       </RightPanel>
     )
 }
@@ -37,7 +40,7 @@ export default Panel;
 
 const RightPanel = styled.div`
   width: 250px;
-  height: 500px;
+  min-height: 500px;
   font-size: 13px;
   border-left: 1px solid black;
   font-family: 'Raleway', sans-serif;

@@ -9,23 +9,37 @@ import ProjectCanvas from './containers/project.js';
 
 const App = () => {
 
+    const Logout = () => {
+      console.log(' clicked log out ')
+      fetch('/logout')
+        .catch(err => console.log(err))
+
+    }
+
     return (
       <Router>
         <Header>
           <Link className="link" to="/login"><Logo>Magnolia</Logo></Link>
           <RightNav>
-            <Link className="right-link" to="/homepage">Homepage</Link>
-            <Link className="right-link" to="/login">Logout</Link>
+            <Link className="right-link" to="/projectpage">Projects</Link>
+            <LogoutBtn className="right-link" onClick={Logout} >Logout</LogoutBtn>
           </RightNav>
         </Header>
         <Route path="/login" component={ Login } />
-        <Route path="/homepage" component={ Homepage } />
+        <Route path="/projectpage" component={ Homepage } />
         <Route path="/project/:id" component={ ProjectCanvas } />
       </Router>
     )
 }
 
 export default App;
+
+const LogoutBtn = styled.button`
+  background-color: #847996;
+  border: none;
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+`
 
 const Header = styled.header`
     display: flex;

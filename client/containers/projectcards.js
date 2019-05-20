@@ -16,58 +16,18 @@ const ProjectCards = ({ addNewProject }) => {
   //This function will fetch all the current projects (after render)
   //The response will be ID list of projects and their names
   useEffect(() => {
+
     const metaData = {
         'method': 'GET',
         'Content-type': 'application/json'
     }
 
-    // fetch('/getallprojects', metaData)
-    //     .then(response => response.json())
-    //     .then(response => setAllProjects([
-    //         {
-    //             project_id: 1,
-    //             project_name: 'first project'
-    //         },
-    //         {
-    //             project_id: 2,
-    //             project_name: 'second project'
-    //         },
-    //         {
-    //             project_id: 3,
-    //             project_name: 'third project'
-    //         }
-    //     ]))
-    //     .catch(err => console.log(err))
+    fetch('/getallprojects', metaData)
+        .then(response => response.json())
+        .then(response => setAllProjects(response))
+        .catch(err => console.log('error in getting the projects', err))
 
-    /*
-      response:
-        [
-            {
-                project_name:
-                project_id:
-            },
-            ...
-        ]
-
-    */
-
-   setAllProjects([
-    {
-        project_id: 4,
-        project_name: 'fourth project'
-    },
-    {
-        project_id: 5,
-        project_name: 'fifth project'
-    },
-    {
-        project_id: 6,
-        project_name: 'sixth project'
-    }
-   ])
-
-  },[]);
-
+   }, []);
     
   const renderRedirect = () => {
     if(projectID.redirect){

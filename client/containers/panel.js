@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+
 const Panel = ({ addNewNode, saveProject, currentNode, onInputChangeName, onInputChangeCount, onInputChangeProps, onInputChangeState }) => { 
     const { count, name, id, parent_id, props, stateful } = currentNode;
     console.log('curr node ', currentNode)
@@ -13,11 +14,9 @@ const Panel = ({ addNewNode, saveProject, currentNode, onInputChangeName, onInpu
           </TextField>
 
           <label htmlFor="stateful">
-            <input type="checkbox" name="stateful" value="stateful" onChange={onInputChangeState} defaultChecked={stateful}></input>
-            
+            <input type="checkbox" name="stateful" value="stateful" onChange={onInputChangeState} defaultChecked={stateful}></input>            
             <span>Stateful?</span>
           </label>
-
           <TextField>
             <span>How many components are there?:</span>
             <input className="field" type="text" name="componentCount" onChange={onInputChangeCount} defaultValue={count}></input>
@@ -54,6 +53,7 @@ const NodeInfo = styled.form`
 
 `
 
+
 const AddNodeBtn = styled.button`
   border: 1px solid #680E4B;
   border-radius: 3px;
@@ -72,7 +72,6 @@ const AddNodeBtn = styled.button`
     box-shadow: 1px 2px 10px grey;
   }
 `
-
 const UpdateBtn = styled.button`
   border: 1px solid #680E4B;
   border-radius: 3px;

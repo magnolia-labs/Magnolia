@@ -43,10 +43,6 @@ const ProjectCanvas = (props) => {
     //This function will add a new node to the database
     const addNewNode = (e) => {
         const parent_id = e.target.value;
-        console.log(e.target)
-        console.log(e.target.id)
-        console.log('parent id is', parent_id);
-        
         const metaData = {
             'method': 'POST',
             'headers': {
@@ -71,7 +67,6 @@ const ProjectCanvas = (props) => {
     //This function will update a current node to the database
     const updateNode = (e) => {
         e.preventDefault();
-        console.log(' current node name ', currentNode)
         const metaData = {
             'method': 'POST',
             'headers': {
@@ -89,7 +84,8 @@ const ProjectCanvas = (props) => {
         fetch(`/updateproject/${project_id}`, metaData)
           .then(response => response.json())
           .catch(err => console.log('err', err))
-
+        
+      setProjectUpdate(true);
     }
 
     //This function will set the current node the user is viewing
@@ -104,6 +100,7 @@ const ProjectCanvas = (props) => {
     }
 
     //This function will consistently update the current node on the form change
+
     const onInputChangeName = (e) => {
         changeCurrentNode({
             ...currentNode,

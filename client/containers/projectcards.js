@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 
-const ProjectDropdown = () => {
+const ProjectCards = ({ addNewProject }) => {
 
   //This state tracks what current project the user is viewing
   const [projectID, setProjectID] = useState({
@@ -80,31 +80,88 @@ const ProjectDropdown = () => {
 
   //This function gets a list of all the current projects and puts them into an array of dropdown options
   const listOfProjects = allProjects.map(project => {
-    return <option value={project.project_id}>{project.project_name}</option>
+    return <Project onClick={(e) => setProjectID({ project_id: e.target.value, redirect: true })} value={project.project_id}>{project.project_name}</Project>
   });
 
   return (
-    <React.Fragment>
-        {renderRedirect()}
-        <Dropdown onChange={(e) => setProjectID({ project_id: e.target.value, redirect: true })}>
-            {listOfProjects}
-        </Dropdown>
-    </React.Fragment>
+    <ProjectSection>
+      {renderRedirect()}
+      <ProjectTitle>
+        My projects:
+        <NewProjectBtn onClick={addNewProject}>Start New Project</NewProjectBtn>
+      </ProjectTitle>
+      <ProjectList>
+        {listOfProjects}
+      </ProjectList>
+    </ProjectSection>
   ); // end of return
 }
 
-export default ProjectDropdown;
+export default ProjectCards;
 
-const Dropdown = styled.select`
-    padding: 10px 40px;
-    margin: 10px;
-    width: auto;
-    height: 45px;
-    border: none;
-    font-family: 'Poppins', sans-serif;
-    border-radius: 3px;
+const Project = styled.button`
+    width: 200px;
+    padding: 50px 10px 50px 10px;
+    background-color: #336e7b;
+    border-radius: 1px;
+    color: white;
+    font-family: 'Raleway', sans-serif;
+    transition: 0.3s;
+    font-size: 20px;
 
     :focus {
         outline: none;
+    }
+
+    :hover {
+      box-shadow: 1px 2px 10px grey;
+      font-weight: bold;
+    }
+`
+
+const ProjectSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0px 40px;
+`
+
+const ProjectList = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 20px;
+  width: 80%;
+
+`
+
+const ProjectTitle = styled.div`
+  margin: 20px 0px;
+  padding: 10px 10px;
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  font-size: 30px;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid grey;
+`
+
+const NewProjectBtn = styled.button`
+    font-family: 'Raleway', sans-serif;
+    padding: 10px;
+    border-radius: 3px;
+    margin-left: 20px;
+    display: flex;
+    justify-content: flex-end;
+    border: 1px solid #680E4B;
+    transition: 0.3s;
+    background-color: #680E4B;
+    color: white;
+
+    :focus {
+        outline: none;
+    }
+
+    :hover {
+      box-shadow: 1px 2px 10px grey;
+      font-weight: bold;
     }
 `

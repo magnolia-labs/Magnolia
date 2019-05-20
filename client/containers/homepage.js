@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import ProjectDropdown from './projectdropdown.js';
+import ProjectCards from './projectcards.js';
 
 const Homepage = (props) => {
 
@@ -38,6 +38,7 @@ const Homepage = (props) => {
             response:
             {
               project_id:
+              name:
             }
 
         */
@@ -46,22 +47,10 @@ const Homepage = (props) => {
     return (
       <React.Fragment>
         {renderRedirect()}
-        <NewProjectBtn onClick={addNewProject}>Start New Project</NewProjectBtn>
-        <ProjectDropdown />
+        <ProjectCards addNewProject={addNewProject}/>
       </React.Fragment>
     )
 }
 
 export default Homepage;
-
-const NewProjectBtn = styled.button`
-    font-family: 'Poppins', sans-serif;
-    padding: 10px;
-    border-radius: 3px;
-    margin-left: 20px;
-
-    :focus {
-        outline: none;
-    }
-`
 

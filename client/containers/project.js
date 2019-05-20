@@ -8,7 +8,7 @@ const ProjectCanvas = (props) => {
     const project_id = props.match.params.id;
 
     //This is the keep track of the current node we are on
-    const [currentNode, changeCurrentNode] = useState({
+    const [currentNode, changeCurrentNode] = useState({ 
         "id": 0,
         "parent_id": '',
         "name": '',
@@ -25,7 +25,7 @@ const ProjectCanvas = (props) => {
 
     //This function will get the entire tree information
     //This will be called after every update
-    useEffect(() => {
+    useEffect(() => { 
       console.log('Got all the trees :)')
 
       const metaData = {
@@ -35,9 +35,7 @@ const ProjectCanvas = (props) => {
 
     //   get(`/projects/${project_id}`, metaData)
     //     .then(response => response.json())
-    //     .then(response => UpdateProjectTree({
-
-    //     }))
+    //     .then(response => UpdateProjectTree(response))
     //     .catch(err => console.log('Error ', err))
 
         
@@ -104,23 +102,19 @@ const ProjectCanvas = (props) => {
         //update current node in the tree 
         console.log(' id is ', e.target.elements.componentName.id)
         console.log(' name is ', e.target.elements.componentName.value)
-        console.log(' stateful is ', e.target.elements.stateful.value)
+        console.log(' stateful is ', e.target.elements.stateful.checked)
         console.log(' count is ', e.target.elements.componentCount.value)
         console.log(' props is ', e.target.elements.props.value)
 
-        //send a post to update single node
-        //only pass in the single node that needs to be update
-
-  
         const metaData = {
             'method': 'POST',
             'Content-type': 'application/json',
             'body': JSON.stringify({
-                // node_id:
-                // name:
-                // stateful 
-                // props
-                // count
+                "node_id": e.target.elements.componentName.id,
+                "name": e.target.elements.componentName.value,
+                "stateful": e.target.elements.stateful.checked,
+                "count": e.target.elements.componentCount.value,
+                "props": e.target.elements.props.value
             })
         };
 
@@ -188,16 +182,15 @@ const ProjectCanvas = (props) => {
     })
 
     return (
-       <React.Fragment>
-        <ProjectTitle>Project: </ProjectTitle>
+       <ProjectPage>
+        <ProjectTitle>Project: {project_id}</ProjectTitle>
         <BodyOfProject>
             <Canvas>
-                Canvas
                 {arrayOfNodes}
             </Canvas>
             <Panel saveProject={updateNode} currentNode={currentNode} />
         </BodyOfProject>
-      </React.Fragment>
+      </ProjectPage>
     )
 }
 
@@ -206,25 +199,32 @@ export default ProjectCanvas;
 
 //These are the styled components 
 const Canvas = styled.div`
-    border: 1px solid black;
-    width: 500px;
-    height: 500px;
+    width: 80%;
 ` 
 
 const BodyOfProject = styled.div`
     display: flex;
     justify-content: space-around;
     align-content: flex-start;
+    width: 90%;
+    margin: 30px;
+    border: 1px solid #283044;
+    border-radius: 3px;
+    box-shadow: 2px 2px 3px #283044;
 `
 
 const ProjectTitle = styled.h1`
-  font-family: 'Poppins', sans-serif;
-  font-size: 20px;
+  margin: 20px 0px;
+  padding: 10px 10px;
+  font-family: 'Raleway', sans-serif;
+  font-size: 30px;
+  border-bottom: 1px solid grey;
 `
 
 const Node = styled.button`
   padding: 20px;
-  border-radius: 40px;
+  border-radius: 100px;
+  width: 100px;
   font-family: 'Poppins', sans-serif;
   :focus {
     outline: none; 
@@ -242,4 +242,11 @@ const AddNode = styled.button`
 const NodeWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+`
+
+const ProjectPage = styled.div`
+    padding: 0px 40px;
 `

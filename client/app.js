@@ -12,10 +12,11 @@ const App = () => {
     return (
       <Router>
         <Header>
-            Magnolia 🌸
-            <Link to="/login">Login</Link>
-            <Link to="/homepage">Homepage</Link>
-            <Link to="/login">Logout</Link>
+          <Link className="link" to="/login"><Logo>Magnolia</Logo></Link>
+          <RightNav>
+            <Link className="right-link" to="/homepage">Homepage</Link>
+            <Link className="right-link" to="/login">Logout</Link>
+          </RightNav>
         </Header>
         <Route path="/login" component={ Login } />
         <Route path="/homepage" component={ Homepage } />
@@ -28,10 +29,22 @@ export default App;
 
 const Header = styled.header`
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
-    width: 400px;
-    font-family: 'Poppins', sans-serif;
-    padding: 10px;
+    width: 100%;
+    font-family: 'Raleway', sans-serif;
+    padding: 20px;
     border-radius: 3px;
+    background-color: #847996;
 `
+const Logo = styled.h2`
+  font-family: 'Raleway', sans-serif;
+  color: white;
+`
+
+const RightNav = styled.div`
+  display: flex;
+  width: 200px;
+  justify-content: flex-end;
+`
+
